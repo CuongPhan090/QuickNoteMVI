@@ -1,6 +1,5 @@
 package com.cphan.quicknotemvi.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -9,35 +8,51 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+private val LightColorScheme = lightColorScheme(
+    primary = Blue40,
+    onPrimary = Color.White,
+    primaryContainer = Blue90,
+    onPrimaryContainer = Blue40,
+    inversePrimary = Blue80,
+    background = Neutral98,
+    onBackground = Neutral10,
+    surface = Color.White,
+    onSurface = Neutral10,
+    onSurfaceVariant = NeutralVariant40,
+    outlineVariant = NeutralVariant90,
+    inverseSurface = Neutral20,
+    inverseOnSurface = Neutral95,
+    error = Red40,
+    onError = Color.White
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val DarkColorScheme = darkColorScheme(
+    primary = Blue80Dark,
+    onPrimary = Blue20Dark,
+    primaryContainer = Blue30Dark,
+    onPrimaryContainer = Blue90,
+    inversePrimary = Blue40,
+    background = Neutral6,
+    onBackground = Neutral90,
+    surface = Neutral12,
+    onSurface = Neutral90,
+    onSurfaceVariant = NeutralVariant80,
+    outlineVariant = NeutralVariant30,
+    inverseSurface = Neutral90,
+    inverseOnSurface = Neutral20,
+    error = Red80,
+    onError = Red20
 )
 
 @Composable
 fun QuickNoteMVITheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    // Dynamic color (Android 12+) would replace the app's palette with the
+    // wallpaper's colors, so it is off to keep the designed look.
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
