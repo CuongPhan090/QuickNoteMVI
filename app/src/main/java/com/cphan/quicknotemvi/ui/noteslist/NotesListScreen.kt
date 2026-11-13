@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.cphan.quicknotemvi.R
 import com.cphan.quicknotemvi.data.Note
+import com.cphan.quicknotemvi.ui.common.ScreenLoading
 import com.cphan.quicknotemvi.ui.theme.Dimens
 import com.cphan.quicknotemvi.ui.theme.ProgressTrack
 import com.cphan.quicknotemvi.ui.theme.QuickNoteMVITheme
@@ -81,7 +82,7 @@ fun NotesListScreen(
                 .padding(innerPadding)
         ) {
             when {
-                state.isLoading -> NotesListLoading()
+                state.isLoading -> ScreenLoading()
                 state.notes.isEmpty() -> NotesListEmpty()
                 else -> NotesList(
                     state = state,
@@ -91,18 +92,6 @@ fun NotesListScreen(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun NotesListLoading(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        CircularProgressIndicator(
-            modifier = Modifier.size(Dimens.SpinnerSize),
-            strokeWidth = Dimens.SpinnerStrokeWidth,
-            color = MaterialTheme.colorScheme.primary,
-            trackColor = ProgressTrack
-        )
     }
 }
 

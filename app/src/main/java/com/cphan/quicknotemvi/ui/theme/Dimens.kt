@@ -53,6 +53,11 @@ object Dimens {
     val SpinnerSize = 48.dp
     val SpinnerStrokeWidth = 4.dp
 
+    // Editor
+    val EditorHorizontalPadding = 20.dp
+    val EditorTopPadding = 8.dp
+    val EditorFieldSpacing = 12.dp // between title and body
+
     // Icons
     val IconSize = 24.dp
 }
