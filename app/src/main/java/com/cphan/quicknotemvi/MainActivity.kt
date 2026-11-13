@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.cphan.quicknotemvi.ui.noteslist.NotesListRoute
+import com.cphan.quicknotemvi.navigation.AppNavHost
 import com.cphan.quicknotemvi.ui.theme.QuickNoteMVITheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,9 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             QuickNoteMVITheme {
-                NotesListRoute(
-                    onOpenEditor = {}
-                )
+                AppNavHost()
             }
         }
     }
