@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -33,7 +32,6 @@ import com.cphan.quicknotemvi.R
 import com.cphan.quicknotemvi.data.Note
 import com.cphan.quicknotemvi.ui.common.ScreenLoading
 import com.cphan.quicknotemvi.ui.theme.Dimens
-import com.cphan.quicknotemvi.ui.theme.ProgressTrack
 import com.cphan.quicknotemvi.ui.theme.QuickNoteMVITheme
 
 /**
@@ -85,9 +83,12 @@ fun NotesListScreen(
                 state.isLoading -> ScreenLoading()
                 state.notes.isEmpty() -> NotesListEmpty()
                 else -> NotesList(
-                    state = state,
+                    notes = state.notes,
                     onNoteClick = {
                         onIntent(NotesListIntent.NoteClicked(it))
+                    },
+                    onNoteSwiped = {
+                        onIntent(NotesListIntent.DeleteSwiped(it))
                     }
                 )
             }
@@ -137,8 +138,9 @@ private fun NotesListEmpty(modifier: Modifier = Modifier) {
 
 @Composable
 private fun NotesList(
-    state: NotesListState,
+    notes: List<Note>,
     onNoteClick: (String) -> Unit,
+    onNoteSwiped: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -151,10 +153,12 @@ private fun NotesList(
         ),
         verticalArrangement = Arrangement.spacedBy(Dimens.ListItemSpacing)
     ) {
-        items(items = state.notes, key = { note -> note.id }) { note ->
-            NoteCard(
+        items(items = notes, key = { note -> note.id }) { note ->
+            SwipeableNoteCard(
                 note = note,
-                onCardClicked = onNoteClick
+                onCardClicked = onNoteClick,
+                onCardSwiped = onNoteSwiped,
+                modifier = Modifier.animateItem()
             )
         }
     }

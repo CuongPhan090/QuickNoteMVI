@@ -1,5 +1,6 @@
 package com.cphan.quicknotemvi.ui.noteslist
 
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
@@ -34,6 +35,7 @@ fun NotesListRoute(
                         val result = snackBarHostState.showSnackbar(
                             message = "Note deleted",
                             actionLabel = "Undo",
+                            duration = SnackbarDuration.Short
                         )
                         when (result) {
                             SnackbarResult.Dismissed -> {
