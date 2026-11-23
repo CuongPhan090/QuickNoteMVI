@@ -14,7 +14,6 @@ fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-
     NavHost(modifier = modifier, navController = navController, startDestination = NotesListDestination) {
         composable<NotesListDestination> {
             NotesListRoute(onOpenEditor = { id ->

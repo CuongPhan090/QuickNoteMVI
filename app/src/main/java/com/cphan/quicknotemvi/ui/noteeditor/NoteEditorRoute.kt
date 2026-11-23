@@ -19,6 +19,8 @@ fun NoteEditorRoute(
 ) {
     val state by viewModel.noteEditorState.collectAsStateWithLifecycle()
     val onIntent = viewModel::onIntent
+    // LaunchedEffect(Unit) never restarts, so it would keep the first onClose;
+    // this always reads the latest one passed in.
     val currentOnClose by rememberUpdatedState(onClose)
 
     LaunchedEffect(Unit) {

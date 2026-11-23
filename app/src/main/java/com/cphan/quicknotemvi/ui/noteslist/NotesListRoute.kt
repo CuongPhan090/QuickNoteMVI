@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -21,11 +22,14 @@ fun NotesListRoute(
     val state by viewModel.notesListState.collectAsStateWithLifecycle()
     val snackBarHostState = remember { SnackbarHostState() }
     val onIntent = viewModel::onIntent
+    // LaunchedEffect(Unit) never restarts, so it would keep the first onOpenEditor;
+    // this always reads the latest one passed in.
+    val currentOnOpenEditor by rememberUpdatedState(onOpenEditor)
     LaunchedEffect(Unit) {
         viewModel.notesListEffect.collect { effect ->
             when (effect) {
                 is NotesListEffect.OpenEditor -> {
-                    onOpenEditor(effect.id)
+                    currentOnOpenEditor(effect.id)
                 }
 
                 is NotesListEffect.ShowSnackBar -> {
